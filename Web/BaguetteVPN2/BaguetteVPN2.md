@@ -11,7 +11,7 @@ Ce challenge est la suite de [Baguette VPN (1/2)](https://www.ecuri.es/baguette-
 
 # La suite
 
-Nous avons précdemment récupéré le code source du serveur web :
+Nous avons précédemment récupéré le code source du serveur web :
 
 ```python
 # /usr/bin/env python3
@@ -100,7 +100,7 @@ Tout d'abord l'en-tête :
 
 Cet en-tête nous dit que nous avons à faire à un script en [Python](https://fr.wikipedia.org/wiki/Python_(langage)) 3.
 
-On a aussi l'information que ce script utilise des dépendances (fichier `requirments.txt`). Allons jeter un coup d'oeil :
+On a aussi l'information que ce script utilise des dépendances (fichier `requirements.txt`). Allons jeter un coup d'oeil :
 
 ```
 urllib3==1.24.2
@@ -109,7 +109,7 @@ flask
 
 Le script serveur utilise le framework web [Flask](https://fr.wikipedia.org/wiki/Flask_(framework)) et utilise une version d'[urllib3](https://urllib3.readthedocs.io/en/latest/) sur une version figée 1.24.2.
 
-Dans la suite du script nous voyons plusieurs routes :
+Dans la suite du script, nous voyons plusieurs routes :
 
  ```python
  @app.route('/')
@@ -151,7 +151,7 @@ def admin():
     return Response('Interdit: mauvaise adresse IP', status=403)
 ```
 
-Cette route est la route qui nous interesse. Elle nous dit que si l'adresse IP du client qui fait la requête est l'adresse locale (127.0.0.1), lui même, et que si le [header HTTP](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields) `X-API-KEY` a la valeur `b99cc420eb25205168e83190bae48a12`, alors le flag (qu se situe dans une variable d'environnement) est affiché. Sinon circulez, il n'y a rien à voir.
+Cette route est la route qui nous intéresse. Elle nous dit que si l'adresse IP du client qui fait la requête est l'adresse locale (127.0.0.1), donc lui même, et que si le [header HTTP](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields) `X-API-KEY` a la valeur `b99cc420eb25205168e83190bae48a12`, alors le flag (qui se situe dans une variable d'environnement) est affiché. Sinon circulez, il n'y a rien à voir.
 
 ```python
 @app.route("/api/debug")
@@ -181,7 +181,7 @@ def load_page(path):
         return Response(str(e), status=404)
 ```
 
-Cette route qui sert à filtrer l'accès aux fichiers potentiels sur le serveur. Elle emêche notemment de faire du Directory Transversal / Navigation Transverse de fichiers.
+Cette route sert à filtrer l'accès aux fichiers potentiels sur le serveur. Elle empêche notemment de faire du Directory Transversal / Navigation Transverse de fichiers.
 
 ```python
 if __name__ == '__main__':
@@ -196,16 +196,16 @@ Elle le lance sur le port spécifié dans la variable d'environnement `FLASK_LOC
 Nous avons donc les informations suivantes :
 - Application en [Python](https://fr.wikipedia.org/wiki/Python_(langage)) avec [Flask](https://fr.wikipedia.org/wiki/Flask_(framework))
 - Utilisation de la version 1.24.2 de la librairie [urllib3](https://urllib3.readthedocs.io/en/latest/)
-- Le port sur lequel l'application tourne qui est inconnu mais disponible quelque part dans les variables d'environnement
+- Le port sur lequel l'application tourne est inconnu mais disponible, quelque part, dans les variables d'environnement
 - L'utilisation d'une route pour récupérer une image d'un [CDN](https://fr.wikipedia.org/wiki/R%C3%A9seau_de_diffusion_de_contenu)
-- La route qui nous interesse `/api/secret` qu'on ne peut interroger que via le serveur lui même avec une en-tête bien spécifique.
+- La route qui nous intéresse `/api/secret` ne peut être interroger que via le serveur lui-même avec une en-tête bien spécifique.
 
 On a beaucoup d'informations.
 
 # Recherches complémentaires et exploit
 En cherchant un peu sur Internet, on tombe sur une faille de sécurité ([CVE-2019-9740](https://bugs.python.org/issue36276)) d'[urllib3](https://urllib3.readthedocs.io/en/latest/) qui est corrigée en version 1.24.3
 
-Cette faille de sécurité permet, via une [CRLF Injection](https://fr.wikipedia.org/wiki/Carriage_Return_Line_Feed), de pouvoir manipuler et de modifier les en-têtes. C'est interessant. On pourrait donc s'en servir pour injecter la clé d'[API](https://fr.wikipedia.org/wiki/Interface_de_programmation) permettant l'accès au flag.
+Cette faille de sécurité permet, via une [CRLF Injection](https://fr.wikipedia.org/wiki/Carriage_Return_Line_Feed), de pouvoir manipuler et modifier les en-têtes. C'est intéressant ! On pourrait donc s'en servir pour injecter la clé d'[API](https://fr.wikipedia.org/wiki/Interface_de_programmation) permettant l'accès au flag.
 
 Mais ce n'est pas suffisant. Comme on le voit dans le code à cette ligne :
 
@@ -213,16 +213,16 @@ Mais ce n'est pas suffisant. Comme on le voit dans le code à cette ligne :
 return http.request('GET', 'http://baguette-vpn-cdn' + filename).data
 ```
 
-La requete tape sur `http://baguette-vpn-cdn`. Autrement dit, ce n'est pas la machine du serveur (localhost ou 127.0.0.1).
+La requête tape sur `http://baguette-vpn-cdn`. Autrement dit, ce n'est pas la machine du serveur (localhost ou 127.0.0.1).
 
 Il faudrait trouver un moyen de pouvoir changer cette URL.
 
-En cherchant un peu (encore) que Internet, on tombe sur la possibilité de faire une [SSRF](https://en.wikipedia.org/wiki/Server-side_request_forgery) avec urllib (https://www.blackhat.com/docs/us-17/thursday/us-17-Tsai-A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf) qui nous dit :
+En cherchant un peu (encore) sur Internet, on tombe sur la possibilité de faire une [SSRF](https://en.wikipedia.org/wiki/Server-side_request_forgery) avec urllib (https://www.blackhat.com/docs/us-17/thursday/us-17-Tsai-A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf) qui nous dit :
 
 ![ssrf](assets/ssrf.png)
 
 On peut donc bypasser le début de la requete [HTTP](https://fr.wikipedia.org/wiki/Hypertext_Transfer_Protocol) pour taper sur celle qu'on veut.
-Essayons donc avec un serveur que nous maitrisons en requêtant via l'URL :
+Essayons donc avec un serveur que nous maîtrisons en requêtant via l'URL :
 
 ```
 http://challenges2.france-cybersecurity-challenge.fr:5002/api/image?fn=%0A%26%40ecuri.es:1234
@@ -239,9 +239,9 @@ Host: ecuri.es:1234
 Accept-Encoding: identity
 ```
 
-BINGO. On sait donc requeter sur une autre URL.
+BINGO. On sait donc requêter sur une autre URL.
 
-Le seul soucis, c'est qu'on ne connait pas le numéro de port utilisé dans la variable d'environnement `FLASK_LOCAL_PORT`.
+Le seul souci, c'est qu'on ne connait pas le numéro de port utilisé dans la variable d'environnement `FLASK_LOCAL_PORT`.
 
 Dans la culture geek, le port communément utilisé pour diverses choses, du lol, des tests, autres, c'est le port `1337`.
 
