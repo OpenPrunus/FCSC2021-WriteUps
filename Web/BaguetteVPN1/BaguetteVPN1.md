@@ -6,7 +6,7 @@
 # Baguette VPN. Le VPN de l'avenir
 
 Dans ce challenge web, nous avons le site d'un service de [VPN](https://fr.wikipedia.org/wiki/R%C3%A9seau_priv%C3%A9_virtuel) (Baguette VPN).
-Ce challenge est en 2 parties. Une simple (exposé ici) et une plus compliqué.
+Ce challenge est en 2 parties : une simple (exposée ici) et une plus compliquée.
 
 
 ![acceuil](assets/acceuil.png)
