@@ -205,7 +205,7 @@ On a beaucoup d'informations.
 # Recherches complémentaires et exploit
 En cherchant un peu sur Internet, on tombe sur une faille de sécurité ([CVE-2019-9740](https://bugs.python.org/issue36276)) d'[urllib3](https://urllib3.readthedocs.io/en/latest/) qui est corrigée en version 1.24.3
 
-Cette faille de sécurité permet, via une CRLF Injection, de pouvoir manipuler et de modifier les en-têtes. C'est interessant. On pourrait donc s'en servir pour injecter la clé d'API permettant l'accès au flag.
+Cette faille de sécurité permet, via une [CRLF Injection](https://fr.wikipedia.org/wiki/Carriage_Return_Line_Feed), de pouvoir manipuler et de modifier les en-têtes. C'est interessant. On pourrait donc s'en servir pour injecter la clé d'API permettant l'accès au flag.
 
 Mais ce n'est pas suffisant. Comme on le voit dans le code à cette ligne :
 
