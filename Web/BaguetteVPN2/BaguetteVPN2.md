@@ -139,7 +139,7 @@ def image():
         return Response('Paramètre manquant', status=400)
 ```
 
-Cette route sert à récupérer une image qui vient d'un CDN en mettant son nom dans un paramètre qui s'appelle `fn`. On remarque aussi l'utilisation de la librairie [Python](https://fr.wikipedia.org/wiki/Python_(langage)) [`urllib3`](https://urllib3.readthedocs.io/en/latest/).
+Cette route sert à récupérer une image qui vient d'un [CDN](https://fr.wikipedia.org/wiki/R%C3%A9seau_de_diffusion_de_contenu) en mettant son nom dans un paramètre qui s'appelle `fn`. On remarque aussi l'utilisation de la librairie [Python](https://fr.wikipedia.org/wiki/Python_(langage)) [`urllib3`](https://urllib3.readthedocs.io/en/latest/).
 
 ```python
 @app.route("/api/secret")
@@ -197,7 +197,7 @@ Nous avons donc les informations suivantes :
 - Application en [Python](https://fr.wikipedia.org/wiki/Python_(langage)) avec [Flask](https://fr.wikipedia.org/wiki/Flask_(framework))
 - Utilisation de la version 1.24.2 de la librairie [urllib3](https://urllib3.readthedocs.io/en/latest/)
 - Le port sur lequel l'application tourne qui est inconnu mais disponible quelque part dans les variables d'environnement
-- L'utilisation d'une route pour récupérer une image d'un CDN
+- L'utilisation d'une route pour récupérer une image d'un [CDN](https://fr.wikipedia.org/wiki/R%C3%A9seau_de_diffusion_de_contenu)
 - La route qui nous interesse `/api/secret` qu'on ne peut interroger que via le serveur lui même avec une en-tête bien spécifique.
 
 On a beaucoup d'informations.
@@ -205,7 +205,7 @@ On a beaucoup d'informations.
 # Recherches complémentaires et exploit
 En cherchant un peu sur Internet, on tombe sur une faille de sécurité ([CVE-2019-9740](https://bugs.python.org/issue36276)) d'[urllib3](https://urllib3.readthedocs.io/en/latest/) qui est corrigée en version 1.24.3
 
-Cette faille de sécurité permet, via une [CRLF Injection](https://fr.wikipedia.org/wiki/Carriage_Return_Line_Feed), de pouvoir manipuler et de modifier les en-têtes. C'est interessant. On pourrait donc s'en servir pour injecter la clé d'API permettant l'accès au flag.
+Cette faille de sécurité permet, via une [CRLF Injection](https://fr.wikipedia.org/wiki/Carriage_Return_Line_Feed), de pouvoir manipuler et de modifier les en-têtes. C'est interessant. On pourrait donc s'en servir pour injecter la clé d'[API](https://fr.wikipedia.org/wiki/Interface_de_programmation) permettant l'accès au flag.
 
 Mais ce n'est pas suffisant. Comme on le voit dans le code à cette ligne :
 
