@@ -62,7 +62,7 @@ enc = aes.nonce + c + tag
 print(enc.hex())
 ```
 
-Il concatène le nonce, la valeur chifrée et le tag.
+Il concatène le nonce, la valeur chiffrée et le tag.
 Il affiche le résultat sous forme hexadécimale.
 
 
@@ -116,7 +116,7 @@ output = open("output.txt", "rb").read()[:-1]
 
 On récupère le contenu de `output.txt` moins le caractère de fin (retour à la ligne (\n)).
 
-Quand on regarde le script `lapin.py` on voit qu'on contruit le contenu de `output.txt` avec :
+Quand on regarde le script `lapin.py` on voit qu'on construit le contenu de `output.txt` avec :
 
 ```python
 enc = aes.nonce + c + tag
@@ -140,7 +140,6 @@ for x in range(0, 9999):
     except ValueError:
         continue
 
-    #if plaintext[:4] == "FCSC":
     print("pin : ", x)
     print(plaintext)
 ```
