@@ -2,7 +2,7 @@
 
 ![intro](assets/RituelDuBoutisme.png)
 
-Dans ce challenge nous avont un dump d'une image disque dans lequel se trouve un flag.
+Dans ce challenge, nous avons un dump d'une image disque dans lequel se trouve un flag.
 
 [`disque.img.7z`](ressources/disque.img.7z)
 
@@ -16,7 +16,7 @@ On voit ici qu'il y a bien 2 fichiers qui ont été effacés :
 - flag.txt
 - file
 
-Le soucis c'est que ces 2 fichiers font 0 octets. Ils sont vides donc. Comme si le disque avait été formaté. Impossible de les récupérer via [Testdisk](https://fr.wikipedia.org/wiki/TestDisk).
+Le souci est que ces 2 fichiers font 0 octets. Ils sont vides donc. Comme si le disque avait été formaté. Impossible de les récupérer via [Testdisk](https://fr.wikipedia.org/wiki/TestDisk).
 
 On va donc essayer d'utiliser un autre outil de récupération de fichiers : `RLinux`
 
@@ -24,9 +24,9 @@ On va donc essayer d'utiliser un autre outil de récupération de fichiers : `RL
 
 On lance l'analyse sur le fichier image (.img) et récupérer les fichiers qui sont dessus.
 
-On voit ici que 3 fichiers ont été récupérer (j'ai placé ces fichiers dans un répertoire que j'ai nommé `Root`).
+On voit ici que 3 fichiers ont été récupérés (j'ai placé ces fichiers dans un répertoire que j'ai nommé `Root`).
 
-À l'intérieur de ce dossier, nous avons récupérer les 2 fichiers qui avaient 0 octets dans [Testdisk](https://fr.wikipedia.org/wiki/TestDisk).
+À l'intérieur de ce dossier, nous avons récupéré les 2 fichiers qui avaient 0 octets dans [Testdisk](https://fr.wikipedia.org/wiki/TestDisk).
 
 ![root](assets/root.png)
 
