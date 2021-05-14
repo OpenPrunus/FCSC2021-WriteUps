@@ -21,7 +21,7 @@ Montons donc disque.e01
 kali@Tyrell:~/FCSC/FCSC2021/forensic/DisqueNuagique$ ewfmount disque.e01 disque
 ```
 
-Nous allons extraire les chaines de caractères de ce disque.
+Nous allons extraire les chaînes de caractères de ce disque.
 
 ```shell
 kali@Tyrell:~/FCSC/FCSC2021/forensic/DisqueNuagique$ strings disque/ewf1 > disque1.txt
@@ -33,7 +33,7 @@ Nous trouvons bien le volume en question à l'interieur de ce fichier :
 
 On voit ici que ce volume est un volume chiffré.
 
-Regardons avec la commande `parted` à quel offset se trouve cette partition :
+Regardons avec la commande `parted` sur quel offset se trouve cette partition :
 
 ```shell
 kali@Tyrell:~/FCSC/FCSC2021/forensic/DisqueNuagique$ sudo parted disque/ewf1
