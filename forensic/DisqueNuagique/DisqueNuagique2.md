@@ -23,7 +23,7 @@ Nous avons vu que nous avons 2 partitions :
 - 1 non chifrée : `/boot`
 - 1 chifrée dont on en connait pas la clé.
 
-Conentrons nous sur la première partition (celle non chiffrée).
+Concentrons-nous sur la première partition (celle non chiffrée).
 
 Nous avons à l'intérieur une image [initrd](https://fr.wikipedia.org/wiki/Initrd).
 
@@ -34,9 +34,9 @@ kali@Tyrell:~/FCSC/FCSC2021/forensic/DisqueNuagique/Root$ mv initrd.img-4.19.0-1
 kali@Tyrell:~/FCSC/FCSC2021/forensic/DisqueNuagique/Root$ gunzip initrd.img-4.19.0-14-amd64.gz
 ```
 
-Nous avons donc une image décomprssé.
+Nous avons donc une image décompressée.
 
-Recherchons le [pettern](https://fr.wikipedia.org/wiki/Pattern) `FCSC` à l'intérieur pour voir si on ne trouve pas notre flag.
+Recherchons le [pattern](https://fr.wikipedia.org/wiki/Pattern) `FCSC` à l'intérieur pour voir si on ne trouve pas notre flag.
 
 ```shell
 kali@Tyrell:~/FCSC/FCSC2021/forensic/DisqueNuagique/Root$ strings initrd.img-4.19.0-14-amd64 | grep FCSC
